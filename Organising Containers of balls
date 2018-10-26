@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int q = in.nextInt();
+        for(int a0 = 0; a0 < q; a0++){
+            int n = in.nextInt();
+            int[][] container = new int[n][n];
+            int max;
+            int sumc;
+            int sumt;
+            int num;
+            int[] maxarray = new int[n];
+            int[] typearray = new int[n];
+            int[] sumtype = new int[n];
+            int[] sumcontainer = new int[n];
+            for(int container_i = 0; container_i < n; container_i++){
+                max = 0;
+                sumc = 0;
+                num = 0;
+                for(int container_j = 0; container_j < n; container_j++){
+                    container[container_i][container_j] = in.nextInt();
+                    sumc+=container[container_i][container_j];
+                    if( container[container_i][container_j] > max )
+                    {
+                        max = container[container_i][container_j];
+                        num = container_j; 
+                    }
+                }
+                sumcontainer[container_i] = sumc;
+              
+            }
+            
+            for( int i = 0; i < n; i++ ) {
+                sumt = 0;
+              for( int j = 0; j < n; j++ ) {
+                
+                     sumt = sumt + container[j][i];
+                }
+                sumtype[i] = sumt;
+            }
+          int flag = 0;
+       outer:  for( int k = 0; k < n; k++ ) {
+                  flag = 0;
+                 for( int v = 0; v < n; v++ ) {
+                     if( sumcontainer[k] == sumtype[v] )
+                     {
+                          flag = 1;
+                     }
+                 }
+           if( flag == 1 )
+           {
+               continue;
+           }
+           else
+           {
+               flag = 1000;
+               break outer;
+           }
+            
+       }
+            if( flag == 1 )
+            {
+                System.out.println( "Possible" );
+            }
+            else if( flag == 1000 )
+            {
+                System.out.println( "Impossible" );
+            }
+        }
+    }
+}
